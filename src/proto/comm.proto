@@ -1,0 +1,91 @@
+// Defines the wire protocol for this RPC system. More or less
+// inspired by Kenton Varda's Captain Proto, but tailored
+// specifically this ParseAPI server prototype
+
+package trpc.proto;
+
+option java_package = "trpc";
+option java_outer_classname = "Proto";
+
+// Stream defines the overall protocol as in Captain Proto.
+// Never instantiated; just serves to define the message
+// types that come over the stream
+//
+// See individual message definitions for a description of 
+// payload, etc.
+message Stream {
+    optional SessionHeader header = 1;
+
+    repeated Error error = 2;
+    repeated CallRequest call_request = 3;
+    repeated CallResponse call_response = 4;
+}
+
+// Just in case we need to send metadata at some point
+message SessionHeader {
+}
+
+// Error
+message Error {
+    enum Type {
+        // Shrug
+        UNKNOWN_ERROR = 0;
+
+        // Payload could not be parsed, or call id was invaild.
+        // Connection will be terminated
+        PROTOCOL_ERROR = 1;
+
+        // Unrecognized message received (not one of the Stream fields)
+        // Sender is responsible for doing the right thing, but the
+        // connection is left open.
+        UNKNOWN_MESSAGE = 2;
+    }
+
+    optional Type type = 1 [default=UNKNOWN_ERROR];
+    optional string description = 2;
+}
+
+// RPC call
+message CallRequest {
+    // Identifier for the call, assigned by caller.
+    // Must be unique per session.
+    //
+    // XXX This doesn't matter with synchronous RPC
+    optional int32 call_id = 1;
+
+    // For parsing payload
+    optional int32 method_id = 2;
+
+    // Byte array of payload message
+    optional CallPayload payload = 15;
+}
+
+// RPC response
+message CallResponse {
+    optional int32 call_id = 1;
+    optional CallError error = 2;
+
+    optional CallPayload payload = 15;
+}
+
+// Response error types
+message CallError {
+    enum Type {
+        UNKNOWN_ERROR = 0;
+   
+        // Malformed call request (e.g. malformed payload)
+        BAD_REQUEST = 1;
+
+        // Some kind of application-level error
+        APPLICATION_ERROR = 2;
+    }
+
+    optional Type type = 1 [default=UNKNOWN_ERROR];
+
+    optional string description = 2;
+}
+
+message CallPayload {
+    // Encoded application-level protocol buffer message
+    optional bytes data = 15;
+}

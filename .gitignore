@@ -1,0 +1,9 @@
+*.o
+*.a
+*.so
+depend
+make.local
+libtrpc.so.0.1.0
+test_client
+test_server
+

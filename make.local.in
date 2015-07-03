@@ -1,0 +1,4 @@
+# Google protocol buffers path
+PB_BIN = @_PBBIN_@
+PB_INC = @_PBINC_@
+PB_LIB = @_PBLIB_@

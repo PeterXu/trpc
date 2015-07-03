@@ -1,0 +1,17 @@
+package trpc.hellotest;
+
+option java_package = "trpc";
+option java_outer_classname = "HelloTest";
+option cc_generic_services = true;
+
+service HelloService {
+    rpc Hello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+    optional uint32 hello_id = 1;
+}
+message HelloResponse {
+    optional uint32 hello_id = 1;
+    optional string hello_msg = 2;
+}

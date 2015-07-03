@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--
+    This clean layout may strike some people as eerily 
+    reminiscent of cqctworld.org. This is not an accident; I hope 
+    the authors will take this immitation as the sincerest form 
+    of immitation.
+
+    Also you (the viewer) should take a look at cqctworld
+-->
+
+<head>
+<title>Trivial RPC</title>
+<link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+
+<body>
+
+<div id="header">
+<div style='font-size: 2.75em;'>
+
+Trivial Remote Procedure Calls
+
+<div style='font-size: .5em; line-height: 1.0;'>
+( <span style='font-size: .8em;'>TRPC</span> )
+</div>
+
+</div>
+</div>
+
+<div id="content">
+
+<p>
+TRPC is a simple RPC protocol based on 
+<a href='http://code.google.com/apis/protocolbuffers/'>Google Protocol
+Buffers</a>. TRPC is designed for bare-bones simplicity, and has a limited feature set:
+</p>
+
+<ul>
+
+<li><strong>Synchronous RPC</strong>.
+Client calls block on server response. While the service definitions supported by Protocol Buffers allow an RPC system to implement asynchronous notification, TRPC does not use this facility.
+</li>
+
+<li><strong>Symmetric client and server functionality</strong>.
+RPC clients and servers use the same underlying set of communication primitives. Only the implementation of the service running on top of TRPC differs on the client or server end.
+</li>
+
+<li><strong>Tight integration with Protocol Buffers</strong>.
+In addition to supporting services defined by Google Protocol Buffers, the
+underlying communication protocol for TRPC is implemented using protocol
+buffers.  
+</li>
+
+<li><strong>C++ and Java implementation</strong>. TRPC was created to facilitate Java front-end usage of C++-native services that are not amenable to easy integration through the JNI interface. Currently C++ (client and server) and Java (client only) implementations of TRPC are available.
+</li>
+
+</ul>
+
+<p>
+TRPC is copyright <a href='http://www.cs.wisc.edu/~bart'>Barton Miller</a> and
+the <a href='http://www.paradyn.org'>Paradyn Project</a> and is licensed under
+the LGPL.  
+</p>
+
+<h3>Documentation</h3>
+
+<p>
+We regret the lack of documentation at this time. Please take a look at the simple `hello.proto' example service and its client and server implementations.
+</p>
+
+<h3>Download</h3>
+
+<p>
+A <a href='trpc.tgz'>snapshot</a> is available.
+</p>
+
+<h3>Contact</h3>
+
+<p>
+Contact Nathan Rosenblum at UW-Madison Computer Sciences.
+</p>
+
+</div>
+
+</body>
+</html>
+
+

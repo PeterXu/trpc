@@ -50,6 +50,19 @@ SocketRpcController::Reset()
     m_err = std::string("");
     m_notify = NULL;
 }
+
+bool 
+SocketRpcController::Failed() const 
+{ 
+    return m_failed; 
+}
+
+std::string 
+SocketRpcController::ErrorText() const 
+{ 
+    return m_err; 
+}
+
 void
 SocketRpcController::StartCancel()
 {
@@ -61,6 +74,11 @@ SocketRpcController::SetFailed(std::string const& reason)
 {
     m_err = reason;
     m_failed = true;
+}
+
+bool SocketRpcController::IsCanceled() const
+{ 
+    return m_canceled; 
 }
 
 void 

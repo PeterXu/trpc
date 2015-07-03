@@ -5,7 +5,7 @@ PROTOC			= $(PB_BIN)/protoc
 CXX	            = g++
 CXXFLAGS        = -g -Wall
 INCLUDE         = -I$(UTIL) -I$(EXTERNAL) -isystem $(PB_INC) -I../src -I.
-LDFLAGS         = -lpthread -L../src -ltrpc -lprotobuf
+LDFLAGS         = -lpthread -lprotobuf -L../src -Wl,-Bstatic -ltrpc -Wl,-Bdynamic
 
 ifndef DEBUG
 CXXFLAGS       += -O2

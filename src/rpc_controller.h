@@ -36,6 +36,12 @@
 #include <google/protobuf/service.h>
 #include <google/protobuf/stubs/common.h>
 
+#if __cplusplus < 201103L
+#ifndef override
+#define override
+#endif
+#endif
+
 namespace trpc {
 
 class SocketRpcController : public google::protobuf::RpcController {
@@ -44,15 +50,15 @@ class SocketRpcController : public google::protobuf::RpcController {
     ~SocketRpcController();
    
     // client-side 
-    void Reset();
-    bool Failed() const { return m_failed; }
-    std::string ErrorText() const { return m_err; }
-    void StartCancel();
+    void Reset() override;
+    bool Failed() const override;
+    std::string ErrorText() const override;
+    void StartCancel() override;
 
     // server-side
-    void SetFailed(std::string const& reason);
-    bool IsCanceled() const { return m_canceled; }
-    void NotifyOnCancel(google::protobuf::Closure *);
+    void SetFailed(std::string const& reason) override;
+    bool IsCanceled() const override;
+    void NotifyOnCancel(google::protobuf::Closure *) override;
 
  private:
     bool m_failed;

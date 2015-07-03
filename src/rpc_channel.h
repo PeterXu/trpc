@@ -33,6 +33,12 @@
 
 #include <google/protobuf/service.h>
 
+#if __cplusplus < 201103L
+#ifndef override
+#define override
+#endif
+#endif
+
 namespace trpc {
 
 class Connection;
@@ -46,7 +52,7 @@ class SocketRpcChannel : public google::protobuf::RpcChannel {
         google::protobuf::RpcController * controller,
         const google::protobuf::Message * request,
         google::protobuf::Message * response,
-        google::protobuf::Closure * done);
+        google::protobuf::Closure * done) override;
 
  private:
     Connection * m_conn;
